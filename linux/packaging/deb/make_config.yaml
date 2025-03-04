@@ -1,0 +1,22 @@
+display_name: Depp Work Timer
+package_name: deep-work-imer
+maintainer:
+  name: vkhangstack
+  email: khangdev.hcm@gmail.com
+priority: optional
+section: x11
+installed_size: 15700
+dependencies:
+  - mpv
+essential: false
+
+postuninstall_scripts:
+  - echo "Sorry to see you go."
+keywords:
+  - API
+  - API Client
+generic_name: API Client
+categories:
+  - Development
+  - Utility
+startup_notify: true
