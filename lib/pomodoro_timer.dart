@@ -148,7 +148,10 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
                               const Color.fromARGB(255, 50, 238, 245),
                             ),
                   ),
-                  child: Text("15 minutes", style: TextStyle(color: Colors.white)),
+                  child: Text(
+                    "15 minutes",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: isRunning ? null : () => startTimerQuick(25),
@@ -160,7 +163,10 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
                               const Color.fromARGB(255, 231, 228, 29),
                             ),
                   ),
-                  child: Text("25 minutes", style: TextStyle(color: Colors.white)),
+                  child: Text(
+                    "25 minutes",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: isRunning ? null : () => startTimerQuick(60),
@@ -172,11 +178,14 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
                               const Color.fromARGB(255, 128, 228, 13),
                             ),
                   ),
-                  child: Text("60 minutes", style: TextStyle(color: Colors.white)),
+                  child: Text(
+                    "60 minutes",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             Text(
               "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}",
               style: TextStyle(
