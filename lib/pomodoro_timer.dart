@@ -26,6 +26,7 @@ class PomodoroTimer extends StatefulWidget {
 class _PomodoroTimerState extends State<PomodoroTimer> {
   // static const int workTime = 15;
   static const int workTime = 25 * 60; // 25 phút
+  static int count = 0;
   int remainingSeconds = workTime;
   Timer? timer;
   bool isRunning = false;
@@ -38,11 +39,20 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
         } else {
           timer.cancel();
           lockScreen();
+          count += 1;
           print("✅ Hết giờ! Nghỉ ngơi đi nào!");
+          print("Bạn đã thêm một quả cà chua rồi nè!");
+          print("Bạn đã có ${count} quả");
         }
       });
       setState(() => isRunning = true);
     }
+  }
+
+  void startTimerQuick(int minutes) {
+    remainingSeconds = minutes * 60;
+    isRunning = true;
+    startTimer();
   }
 
   void stopTimer() {
@@ -102,13 +112,71 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
         primary: true,
-        toolbarHeight: 42,
+        toolbarHeight: 32,
       ),
-      // floatingActionButton: BackButton(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  "Bạn có ${count} 🍅",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Roboto',
+                    letterSpacing: 0.5,
+                    fontSize: 14,
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(10, 30, 0, 10)),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 10,
+              children: [
+                ElevatedButton(
+                  onPressed: isRunning ? null : () => startTimerQuick(15),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        isRunning
+                            ? null
+                            : WidgetStatePropertyAll<Color>(
+                              const Color.fromARGB(255, 50, 238, 245),
+                            ),
+                  ),
+                  child: Text("15 phút", style: TextStyle(color: Colors.white)),
+                ),
+                ElevatedButton(
+                  onPressed: isRunning ? null : () => startTimerQuick(25),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        isRunning
+                            ? null
+                            : WidgetStatePropertyAll<Color>(
+                              const Color.fromARGB(255, 231, 228, 29),
+                            ),
+                  ),
+                  child: Text("25 phút", style: TextStyle(color: Colors.white)),
+                ),
+                ElevatedButton(
+                  onPressed: isRunning ? null : () => startTimerQuick(60),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        isRunning
+                            ? null
+                            : WidgetStatePropertyAll<Color>(
+                              const Color.fromARGB(255, 128, 228, 13),
+                            ),
+                  ),
+                  child: Text("60 phút", style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
             Text(
               "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}",
               style: TextStyle(
@@ -124,7 +192,24 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
               children: [
                 ElevatedButton(
                   onPressed: isRunning ? null : startTimer,
-                  child: Text(isRunning ? "Pause" : "Start"),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        isRunning
+                            ? null
+                            : WidgetStatePropertyAll<Color>(
+                              const Color.fromARGB(255, 93, 9, 228),
+                            ),
+                    shadowColor:
+                        isRunning
+                            ? null
+                            : WidgetStatePropertyAll<Color>(
+                              const Color.fromARGB(255, 153, 147, 163),
+                            ),
+                  ),
+                  child: Text(
+                    isRunning ? "Pause" : "Start",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 SizedBox(width: 10, height: 10),
                 // ElevatedButton(onPressed: resetTimer, child: Text("Reset")),
